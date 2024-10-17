@@ -103,7 +103,7 @@ function Main() {
   };
   
   const onCheck = () => {
-    console.log(ans);
+    
     
     if (validateAngka()) {
       seturUtanBenar(0);
@@ -113,7 +113,7 @@ function Main() {
       setShowHistory(true);
       
     } else {
-      console.log("inputan error");
+      
       setShowResult(false);
     }
   };
@@ -149,7 +149,7 @@ function Main() {
 
   useEffect(() => {
     if (isWin) {
-      // console.log("User menang!");
+     
     }
   }, [isWin]);
   
