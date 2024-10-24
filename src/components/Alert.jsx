@@ -14,8 +14,8 @@ function ConfirmCard({ msg, subMsg ,onConfirm, onCancel}) {
                           </h1>
                           <p className="text-gray-700 tracking-wide text-sm">{subMsg}</p>
                           <div className="grid-cols-2 grid">
-                              <button className="mt-6 mx-3 py-1  bg-sky-500 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300" onClick={onConfirm}>Restart</button>
-                              <button className="mt-6 mx-3 py-1  bg-red-500 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300" onClick={onCancel}>Tutup</button>
+                              <button className="mt-6 mx-3 py-1  bg-sky-500 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 hover:scale-105" onClick={onConfirm}>Restart</button>
+                              <button className="mt-6 mx-3 py-1  bg-red-500 text-white rounded-lg shadow-md hover:shadow-lg transition duration-300 hover:scale-105" onClick={onCancel}>Tutup</button>
                           </div>
                       </div>
                   </div>

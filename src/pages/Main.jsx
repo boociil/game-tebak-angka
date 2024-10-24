@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Alert from '../components/Alert'
 import Panduan from '../components/Panduan'
+import Peringkat from '../components/Peringkat'
+import Tentang from '../components/Tentang'
 import bookIcon from '../img/book.png'
 import infoIcon from '../img/info.png'
+import flagIcon from '../img/flag.png'
 
 function Main() {
   const [angka1, setAngka1] = useState("");
@@ -18,6 +21,9 @@ function Main() {
   const [showError, setShowError] = useState(false);
   const [isWin, setIsWin ] = useState(false);
   const [showPanduan, setshowPanduan] = useState(false);
+  const [showPeringkat, setshowPeringkat] = useState(false);
+  const [showTentang, setshowTentang] = useState(false);
+  const [showCongratsMSG, setShowCongratsMSG] = useState(false);
 
   function getUniqueRandomNumbers(count, min, max) {
     const numbers = Array.from({ length: max - min + 1 }, (_, i) => i + min);
@@ -29,7 +35,6 @@ function Main() {
 
     return numbers.slice(0, count);
   }
-
 
   const addToHistory = (newItem) => {
     setHistory(prevHistory => [...prevHistory, newItem]);
@@ -56,6 +61,8 @@ function Main() {
     // Pengecekan apakah jawaban dari user sudah benar semua
     if (tempUrutanBenar === 4){
       setIsWin(true)
+      setShowCongratsMSG(true);
+      
     }
     
     seturUtanBenar(tempUrutanBenar);
@@ -135,19 +142,36 @@ function Main() {
   };
    
   const onClose = () => {
-    setIsWin(false);
+    setShowCongratsMSG(false);
   }
 
   const onClosePanduan = () => {
     setshowPanduan(false);
   }
 
+  const onClosePeringkat = () => {
+    setshowPeringkat(false);
+  }
+
+  const onCloseTentang = () => {
+    setshowTentang(false);
+  }
+
   const onOpenPanduan = () => {
     setshowPanduan(true);
   }
 
+  const onOpenPeringkat = () => {
+    setshowPeringkat(true);
+  }
+
+  const onOpenTentang = () => {
+    setshowTentang(true);
+  }
+
   const restartGame = () => {
     setIsWin(false);
+    setShowCongratsMSG(false);
     generateAns();
     seturUtanBenar(0);
     setAngkaBenar(0);
@@ -170,15 +194,25 @@ function Main() {
   
   useEffect(() => {}, [showPanduan]);
   
+  useEffect(() => {}, [showCongratsMSG]);
+
 
   return (
     <>
-      {isWin && (
+      {showCongratsMSG && (
         <Alert msg={"Selamat!"} subMsg={"Anda telah menyelesaikan permainan setelah " + history.length +" percobaan!"} onCancel={onClose} onConfirm={restartGame} />
       )}
 
       {showPanduan && (
         <Panduan onCancel={onClosePanduan} />
+      )}
+
+      {showPeringkat && (
+        <Peringkat onCancel={onClosePeringkat} />
+      )}
+
+      {showTentang && (
+        <Tentang onCancel={onCloseTentang} />
       )}
       
       {/* Konten utama */}
@@ -191,7 +225,7 @@ function Main() {
             <div className="input-place grid grid-cols-4">
             
               <input
-                className="m-2 w-10 h-10 hover:border-2 hover:border-green-400 transition duration-500 bg-white rounded-md text-center text-xl col-start-1"
+                className={`m-2 w-10 h-10 hover:border-2 hover:border-green-400 transition duration-500 bg-white rounded-md text-center text-xl col-start-1 ${isWin ? 'border-green-400 border-2 bg-green-200' : ''}`}
                 name="angka11"
                 id="angka-1"
                 placeholder="0"
@@ -199,7 +233,7 @@ function Main() {
                 onChange={(event) => onAngkaChange(event, 1)}
               />
               <input
-                className="m-2 w-10 h-10 hover:border-2 hover:border-green-400 transition duration-500 bg-white rounded-md text-center text-xl col-start-2"
+                className={`m-2 w-10 h-10 hover:border-2 hover:border-green-400 transition duration-500 bg-white rounded-md text-center text-xl col-start-2 ${isWin ? 'border-green-400 border-2 bg-green-200' : ''}`}
                 name="angka22"
                 id="angka-2"
                 placeholder="0"
@@ -207,7 +241,7 @@ function Main() {
                 onChange={(event) => onAngkaChange(event, 2)}
               />
               <input
-                className="m-2 w-10 h-10 hover:border-2 hover:border-green-400 transition duration-500 bg-white rounded-md text-center text-xl col-start-3"
+                className={`m-2 w-10 h-10 hover:border-2 hover:border-green-400 transition duration-500 bg-white rounded-md text-center text-xl col-start-3 ${isWin ? 'border-green-400 border-2 bg-green-200' : ''}`}
                 name="angka33"
                 id="angka-3"
                 placeholder="0"
@@ -215,7 +249,7 @@ function Main() {
                 onChange={(event) => onAngkaChange(event, 3)}
               />
               <input
-                className="m-2 w-10 h-10 hover:border-2 hover:border-green-400 transition duration-500 bg-white rounded-md text-center text-xl col-start-4"
+                className={`m-2 w-10 h-10 hover:border-2 hover:border-green-400 transition duration-500 bg-white rounded-md text-center text-xl col-start-4 ${isWin ? 'border-green-400 border-2 bg-green-200' : ''}`}
                 name="angka44"
                 id="angka-4"
                 placeholder="0"
@@ -223,17 +257,17 @@ function Main() {
                 onChange={(event) => onAngkaChange(event, 4)}
               />
 
-              <button className="text-white rounded-md text-xs p-1 text-center col-start-1 col-span-2 mt-4 bg-blue-600 hover:bg-blue-400 transition duration-700 hover:scale-110" onClick={onCheck}>
+              <button className={`text-white rounded-md text-xs p-1 text-center col-start-1 col-span-2 mt-4 bg-blue-600 hover:bg-blue-400 transition duration-700 hover:scale-110 ${isWin ? 'opacity-0' : 'opacity-100'} ${history.length < 1 ? 'translate-x-14' : ''}`} onClick={onCheck}>
                 Check!
               </button>
-              {history.length > 0 && (
-                <div className="button text-xs p-1 text-center col-start-3 col-span-2 mt-4 ml-3 bg-red-400 hover:bg-red-200 transition duration-700 hover:scale-110" onClick={restartGame}>
-                  Restart
-                </div>
-              )}
+
+              <div className={`button text-xs p-1 text-center col-start-3 col-span-2 mt-4 ml-3 bg-red-400 hover:bg-red-200 transition duration-700 hover:scale-110 ${isWin ? '-translate-x-16' : ''} ${history.length > 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'} `} onClick={restartGame}>
+                Restart
+              </div>
+
             </div>
 
-            {showResult && (
+            {(showResult && !isWin) && (
               <div className="text-xs mt-3">
                 <div>Benar : {angkaBenar}</div>
                 <div>Posisi : {urutanBenar}</div>
@@ -249,14 +283,22 @@ function Main() {
           </div>
 
           <div className={`Extra grid grid-cols-3 mt-2 transition-all duration-700 ${history.length > 0 ? 'opacity-0' : 'opacity-100'}`}>
-            <div className='text-xs bg-red-400 text-white rounded-md shadow-md text-center py-1 cursor-pointer transition-all duration-700 hover:bg-red-300 hover:scale-110' onClick={onOpenPanduan}>
+            
+            <div className='text-xs ml-1 bg-blue-500 text-white rounded-md shadow-md text-center py-1 cursor-pointer transition-all duration-700 hover:bg-blue-300 hover:scale-110' onClick={onOpenPeringkat}>
+              <div className='flex justify-center items-center '>
+                <img src={flagIcon} alt="Book Icon" className="w-4 h-4 mr-1" />
+                  Peringkat
+              </div>
+            </div>
+            
+            <div className='text-xs ml-1 bg-red-400 text-white rounded-md shadow-md text-center py-1 cursor-pointer transition-all duration-700 hover:bg-red-300 hover:scale-110' onClick={onOpenPanduan}>
               <div className='flex justify-center items-center '>
                 <img src={bookIcon} alt="Book Icon" className="w-4 h-4 mr-1" />
                 Panduan
               </div>
             </div>
           
-            <div className='text-xs ml-1 bg-orange-400 text-white rounded-md shadow-md text-center py-1 cursor-pointer transition-all duration-700 hover:bg-orange-300 hover:scale-110'>
+            <div className='text-xs ml-1 bg-orange-400 text-white rounded-md shadow-md text-center py-1 cursor-pointer transition-all duration-700 hover:bg-orange-300 hover:scale-110' onClick={onOpenTentang}>
               <div className='flex justify-center items-center '>
                 <img src={infoIcon} alt="Book Icon" className="w-4 h-4 mr-1" />
                 Tentang
