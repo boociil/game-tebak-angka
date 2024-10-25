@@ -130,7 +130,7 @@ function Main() {
   
   const onCheck = () => {
     if (validateAngka()) {
-      // console.log(ans);
+      console.log(ans);
       seturUtanBenar(0);
       setAngkaBenar(0);
       checkAnswer();
@@ -257,11 +257,11 @@ function Main() {
                 onChange={(event) => onAngkaChange(event, 4)}
               />
 
-              <button className={`text-white rounded-md text-xs p-1 text-center col-start-1 col-span-2 mt-4 bg-blue-600 hover:bg-blue-400 transition duration-700 hover:scale-110 ${isWin ? 'opacity-0' : 'opacity-100'} ${history.length < 1 ? 'translate-x-14' : ''}`} onClick={onCheck}>
+              <button className={`text-white rounded-md text-xs p-1 text-center col-start-1 col-span-2 mt-4 bg-blue-600 hover:bg-blue-400 transition duration-700 hover:scale-110 ${isWin ? 'opacity-0 pointer-events-none' : 'opacity-100'} ${history.length < 1 ? 'translate-x-14' : ''}`} onClick={onCheck}>
                 Check!
               </button>
 
-              <div className={`button text-xs p-1 text-center col-start-3 col-span-2 mt-4 ml-3 bg-red-400 hover:bg-red-200 transition duration-700 hover:scale-110 ${isWin ? '-translate-x-16' : ''} ${history.length > 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'} `} onClick={restartGame}>
+              <div className={`text-white cursor-pointer rounded-md text-xs p-1 text-center col-start-3 col-span-2 mt-4 ml-3 bg-red-400 hover:bg-red-200 transition duration-700 hover:scale-110 ${isWin ? '-translate-x-14 ml-0' : ''} ${history.length > 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'} `} onClick={restartGame}>
                 Restart
               </div>
 
@@ -282,7 +282,7 @@ function Main() {
             )}
           </div>
 
-          <div className={`Extra grid grid-cols-3 mt-2 transition-all duration-700 ${history.length > 0 ? 'opacity-0' : 'opacity-100'}`}>
+          <div className={`Extra grid grid-cols-3 mt-2 transition-all duration-700 ${history.length > 0 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
             
             <div className='text-xs ml-1 bg-blue-500 text-white rounded-md shadow-md text-center py-1 cursor-pointer transition-all duration-700 hover:bg-blue-300 hover:scale-110' onClick={onOpenPeringkat}>
               <div className='flex justify-center items-center '>
