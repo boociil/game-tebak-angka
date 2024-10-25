@@ -130,7 +130,7 @@ function Main() {
   
   const onCheck = () => {
     if (validateAngka()) {
-      console.log(ans);
+      // console.log(ans);
       seturUtanBenar(0);
       setAngkaBenar(0);
       checkAnswer();
